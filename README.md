@@ -1,4 +1,4 @@
-# web-toucan2
+# web-toucan
 
 ## Build Setup
 

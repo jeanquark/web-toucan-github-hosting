@@ -1,4 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
+const routerBase =
+    process.env.DEPLOY_ENV === 'GH_PAGES'
+        ? {
+              router: {
+                  base: '/web-toucan/'
+              }
+          }
+        : {}
 
 export default {
     // Target (https://go.nuxtjs.dev/config-target)
@@ -6,8 +14,8 @@ export default {
 
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        titleTemplate: '%s - web-toucan2',
-        title: 'web-toucan2',
+        titleTemplate: '%s - Home',
+        title: 'Web Toucan',
         meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
@@ -69,7 +77,7 @@ export default {
             font: {
                 family: 'Lora'
             },
-			icons: 'md'
+            icons: 'md'
         },
         icons: {
             iconfont: 'md'
@@ -95,11 +103,12 @@ export default {
                     error: colors.deepOrange.accent4,
                     success: colors.green.accent3
                 }
-			},
-			options: { customProperties: true }
+            },
+            options: { customProperties: true }
         }
     },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
-    build: {}
+    build: {},
+    ...routerBase
 }

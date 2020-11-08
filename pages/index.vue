@@ -56,7 +56,7 @@ export default {
         image1() {
             if (process.client) {
                 // let windowWidth
-                const windowWidth = window.innerWidth
+                const windowWidth = window ? window.innerWidth : null
                 if (windowWidth < 800) {
                     return '/images/image2-800-min.jpg'
                 } else if (windowWidth < 1200) {
@@ -75,7 +75,7 @@ export default {
         },
         image2() {
             if (process.client) {
-                const windowWidth = window.innerWidth
+                const windowWidth = window ? window.innerWidth : null
                 if (windowWidth < 800) {
                     return '/images/image3-800-min.jpg'
                 } else if (windowWidth < 1200) {
