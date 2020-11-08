@@ -1,19 +1,23 @@
 import colors from 'vuetify/es5/util/colors'
-// const routerBase =
-//     process.env.DEPLOY_ENV === 'GH_PAGES'
-//         ? {
-//               router: {
-//                   base: '/web-toucan/'
-//               }
-//           }
-//         : {}
+const routerBase =
+    process.env.DEPLOY_ENV === 'GH_PAGES'
+        ? {
+              router: {
+                  base: '/web-toucan/'
+              }
+          }
+        : {
+            router: {
+                base: '/'
+            }
+        }
 
 export default {
     // Target (https://go.nuxtjs.dev/config-target)
     target: 'static',
-    router: {
-        base: '/web-toucan/'
-    },
+    // router: {
+    //     base: '/web-toucan/'
+    // },
     // static: {
     //     prefix: false
     // },
@@ -115,5 +119,5 @@ export default {
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {},
-    // ...routerBase
+    ...routerBase
 }
