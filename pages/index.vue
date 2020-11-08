@@ -55,7 +55,6 @@ export default {
         
         image1() {
             if (process.client) {
-                // let windowWidth
                 const windowWidth = window ? window.innerWidth : null
                 if (windowWidth < 800) {
                     return '/images/image2-800-min.jpg'
