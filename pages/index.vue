@@ -13,7 +13,8 @@
 
         <section>
             <client-only>
-                <v-parallax :src="image2" height="380"></v-parallax>
+                <!-- <v-parallax :src="image2" height="380"></v-parallax> -->
+                <v-parallax src="/images/image3-800-min.jpg" height="380"></v-parallax>
             </client-only>
         </section>
 
