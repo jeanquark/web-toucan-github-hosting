@@ -1,5 +1,5 @@
 <template>
-    <v-app class="app">
+    <v-app id="app" v-cloak>
         <v-toolbar color="white">
             <v-toolbar-title>
                 <img src="images/logo_small.png" alt="Web Toucan logo" width="150" />
@@ -33,7 +33,7 @@
         <v-footer :absolute="false" height="auto" color="primary">
             <v-row justify="center" wrap>
                 <v-col cols="12" class="py-3 text-center white--text">
-                    &copy;{{ new Date().getFullYear() }} — <strong>Web Toucan</strong><img src="/images/swiss_flag.png" width="10px" style="vertical-align: top;" />
+                    &copy;{{ new Date().getFullYear() }} — <strong>Web Toucan</strong><img src="images/swiss_flag.png" width="10px" style="vertical-align: top;" />
                 </v-col>
             </v-row>
         </v-footer>
@@ -55,6 +55,23 @@ export default {
     methods: {}
 }
 </script>
+
+<style>
+[v-cloak] > * {
+    display: none;
+}
+
+[v-cloak]::before {
+    content: '';
+    /* background: url('images/loader.gif') center no-repeat; */
+    background: var(--v-primary-base) center no-repeat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+</style>
 
 <style scoped>
 .primary-color {

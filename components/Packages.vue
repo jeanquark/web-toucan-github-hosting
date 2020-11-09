@@ -15,87 +15,50 @@
                                     <v-list subheader style="background-color: #d7ebff;">
                                         <v-list-item>
                                             <v-list-item-avatar>
-                                                <!-- <font-awesome-icon :icon="['fas', 'pager']" size="2x" class="icon" /> -->
                                                 <v-icon color="">web</v-icon>
-                                                <!-- <v-icon>feedback</v-icon> -->
-                                                <!-- <v-icon>mdi-domain</v-icon> -->
                                             </v-list-item-avatar>
                                             <v-list-item-content>
                                                 <v-list-item-title>{{ $t(`packages[${index - 1}].asset1`) }}</v-list-item-title>
                                             </v-list-item-content>
                                             <v-list-item-action>
-                                                <!-- <font-awesome-icon :icon="['fas', 'check-circle']" size="2x" class="icon-success" /> -->
                                                 <v-icon text="white" color="green">check_circle</v-icon>
                                             </v-list-item-action>
                                         </v-list-item>
                                         <v-list-item>
                                             <v-list-item-avatar>
-                                                <!-- <font-awesome-icon :icon="['fas', 'envelope']" size="2x" class="icon" /> -->
                                                 <v-icon>email</v-icon>
                                             </v-list-item-avatar>
                                             <v-list-item-content>
                                                 <v-list-item-title>{{ $t(`packages[${index - 1}].asset2`) }}</v-list-item-title>
                                             </v-list-item-content>
                                             <v-list-item-action>
-                                                <!-- <font-awesome-icon :icon="['fas', 'check-circle']" size="2x" class="icon-success" /> -->
                                                 <v-icon color="green">check_circle</v-icon>
                                             </v-list-item-action>
                                         </v-list-item>
                                         <v-list-item>
                                             <v-list-item-avatar>
-                                                <!-- <font-awesome-icon :icon="['fas', 'search']" size="2x" class="icon" /> -->
                                                 <v-icon>search</v-icon>
                                             </v-list-item-avatar>
                                             <v-list-item-content>
                                                 <v-list-item-title>{{ $t(`packages[${index - 1}].asset3`) }}</v-list-item-title>
                                             </v-list-item-content>
                                             <v-list-item-action>
-                                                <!-- <font-awesome-icon :icon="['fas', 'check-circle']" size="2x" class="icon-success" /> -->
                                                 <v-icon color="green">check_circle</v-icon>
                                             </v-list-item-action>
                                         </v-list-item>
                                     </v-list>
                                     <br />
                                     <div class="text-center">
-                                        <!-- <vue-flip>
-  <template v-slot:front>
-    front
-  </template>
-  <template v-slot:back>
-    back
-  </template>
-</vue-flip> -->
-                                        <!-- <client-only>
-        <vue-flip width="100%" :active-hover="true" transition="1s" class="">
-            <div slot="front">
-                <v-chip label color="pink" text-color="white"> <font-awesome-icon :icon="['fas', 'tag']" size="1x" />CHF 500 </v-chip>
-            </div>
-            <div slot="back">
-                <v-chip label color="orange" text-color="white"> abc<font-awesome-icon :icon="['fas', 'check']" size="1x" /> </v-chip>
-            </div> </vue-flip
-    ></client-only> -->
-                                        <!-- <client-only>
-    <vue-flip active-click="true">
-    <div slot="front">
-        front
-    </div>
-    <div slot="back">
-        back
-    </div>
-</vue-flip>
-</client-only> -->
-
-                                        <!-- <client-only> 
-
-                                        <info-card
-    id="info-card"
-    frontType="graph"
-    frontTitle="Some Numbers"
-    :frontData="[3, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]"
-    backTitle="Quote of the Day"
-    backData='<i>Do you know why people like violence? It is because it feels good. Humans find violence deeply satisfying. But remove the satisfaction, and the act becomes hollow.</i><br><span class="u-pull-right">— Alan Turing</span>'
-  ></info-card>
-  </client-only> -->
+                                        <div class="flip-card">
+                                            <div class="flip-card-inner">
+                                                <div class="flip-card-front">
+                                                    <v-chip label color="pink" text-color="white"> <v-icon left>label</v-icon>CHF {{ prices[index - 1] }} </v-chip>
+                                                </div>
+                                                <div class="flip-card-back">
+                                                    <v-chip label color="orange" text-color="white"> {{ $t('all_inclusive') }}<v-icon right>done</v-icon> </v-chip>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </v-card-text>
                             </v-card>
@@ -108,22 +71,11 @@
 </template>
 
 <script>
-// import VueFlip from '~/components/VueFlip'
-// import VueFlip from 'vue-flip'
-// import FlipCard from 'vue-flip-card';
-// import InfoCard from '~/plugins/vue-info-card'
 export default {
-    // components: { VueFlip }
-    // components: { FlipCard }
-    // components: { InfoCard },
     data() {
         return {
-            colors: [
-                '#8ac5ff',
-                // '#6aaaff',
-                '#64B5F6',
-                '#1976d2'
-            ]
+            prices: ['500', "1'500", "2'000+"],
+            colors: ['#8ac5ff', '#64B5F6', '#1976d2']
         }
     }
 }
@@ -131,9 +83,51 @@ export default {
 
 <style scoped>
 .icon {
-    color: rgba(0,0,0,0.54);
+    color: rgba(0, 0, 0, 0.54);
 }
 .icon-success {
     color: var(--v-success-base);
+}
+
+/* Flip card */
+.flip-card {
+    background-color: transparent;
+    /* width: 300px; */
+    /* height: 300px; */
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    /* background-color: #bbb; */
+    /* color: black; */
+}
+
+.flip-card-back {
+    /* background-color: #2980b9; */
+    /* color: white; */
+    transform: rotateY(180deg);
 }
 </style>

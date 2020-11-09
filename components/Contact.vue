@@ -103,7 +103,7 @@ export default {
                     from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
                     to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
                     subject: 'New contact form from web-toucan.com',
-                    text: 'Testing some Mailgun awesomness!',
+                    // text: 'Testing some Mailgun awesomness!',
                     html: `Email sent on ${new Date()}.<br /><br />
                         Here are the information sent:<br />
                         firstname: <b>${this.encodeHTML(this.form.firstname)}</b><br />
