@@ -3,34 +3,52 @@
         <v-card flat class="" style="padding: 0px 40px;">
             <v-card-title primary-title class="layout justify-center">
                 <div class="headline">
-                    <!-- {{ $contact_form->translate($locale)->content1 }} -->
                     {{ $t('contact.title') }}
                 </div>
             </v-card-title>
             <v-card-text class="text-center">
-                <!-- {{ $contact_form->translate($locale)->content2 }} -->
                 {{ $t('contact.content') }}
                 <br /><br />
             </v-card-text>
 
-            <div class="text-center">
+            <!-- <div class="text-center">
                 mailgunDestinationEmailAddress: {{ mailgunDestinationEmailAddress }}<br /><br />
                 <v-btn dark @click="sendContactForm">Send contact form </v-btn>
-            </div>
+            </div> -->
 
-            <form @submit.prevent="sendContactForm" ref="form">
-                <v-text-field name="firstname" :label="`${$t('form.firstname')}`" :counter="32" @focus="onFocus" v-model="form.firstname"> </v-text-field>
+            <v-form ref="form" lazy-validation @submit.prevent="sendContactForm" v-model="valid">
+                <v-text-field
+                    name="firstname"
+                    :label="`${$t('form.firstname')}`"
+                    :counter="32"
+                    :rules="[
+                        v => !!v || `${$t('form.firstname')} ${$t('validation.is_required')}`,
+                        v => (v && v.length <= 30) || `${$t('form.firstname')} ${$t('validation.max_length')} 30 ${$t('validation.characters')}`
+                    ]"
+                    @focus="onFocus"
+                    v-model="form.firstname"
+                >
+                </v-text-field>
 
-                <v-text-field name="lastname" :label="`${$t('form.lastname')}`" :counter="32" @focus="onFocus" v-model="form.lastname"> </v-text-field>
+                <v-text-field name="lastname" :label="`${$t('form.lastname')}`" :counter="32" :rules="[
+                        v => !!v || `${$t('form.lastname')} ${$t('validation.is_required')}`,
+                        v => (v && v.length <= 30) || `${$t('form.lastname')} ${$t('validation.max_length')} 30 ${$t('validation.characters')}`
+                    ]" @focus="onFocus" v-model="form.lastname"> </v-text-field>
 
-                <v-text-field name="email" :label="`${$t('form.email')}`" @focus="onFocus" v-model="form.email"></v-text-field>
+                <v-text-field name="email" :label="`${$t('form.email')}`" :rules="[
+                        v => !!v || `${$t('form.email')} ${$t('validation.is_required')}`,
+                        v => /.+@.+\..+/.test(v) || `${$t('form.email')} ${$t('validation.is_valid')}`
+                    ]" @focus="onFocus" v-model="form.email"></v-text-field>
 
-                <v-textarea name="message" rows="6" :label="`${$t('form.your_message')}`" @focus="onFocus" v-model="form.message"></v-textarea>
+                <v-textarea name="message" rows="6" :label="`${$t('form.your_message')}`" :rules="[
+                        v => !!v || `${$t('form.your_message')} ${$t('validation.is_required')}`,
+                        v => (v && v.length <= 2048) || `${$t('form.your_message')} ${$t('validation.max_length')} 2048 ${$t('validation.characters')}`
+                    ]" @focus="onFocus" v-model="form.message"></v-textarea>
                 <br />
                 <div class="text-center" v-if="!messageSentSuccess && !messageSentError">
-                    <v-btn color="secondary" type="submit" :loading="loading">{{ $t('form.submit') }}</v-btn>
+                    <v-btn color="secondary" type="submit" :disabled="!valid" :loading="loading">{{ $t('form.submit') }}</v-btn>
                 </div>
-            </form>
+            </v-form>
 
             <v-alert type="success" v-if="messageSentSuccess">
                 {{ $t('form.message_success') }}
@@ -57,13 +75,14 @@ export default {
                 email: '',
                 message: ''
             },
+            valid: true,
             mailgunDestinationEmailAddress: process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS
         }
     },
     computed: {
     },
     methods: {
-        onFocus () {
+        onFocus() {
             console.log('onFocus')
             this.messageSentSuccess = false
             this.messageSentError = false
@@ -75,51 +94,34 @@ export default {
                 .replace(/"/g, '&quot;')
         },
         async sendContactForm() {
-            console.log('sendContactForm: ', this.form)
-            // console.log('Send contact form: ', mg)
-            console.log('escape: ', this.encodeHTML(this.form.message))
-            // this.loading = true
-            // mg.messages
-            //     .create('vlcf.ch', {
-            //         from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
-            //         to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
-            //         subject: 'New contact form from web-toucan.com',
-            //         text: 'Testing some Mailgun awesomness!',
-            //         html: `Email sent on ${new Date()}.<br /><br />
-            //             Here are the information sent:<br />
-            //             firstname: <b>${this.encodeHTML(this.form.firstname)}</b><br />
-            //             lastname: <b>${this.form.lastname}</b><br />
-            //             email: <b>${this.form.email}</b><br />
-            //             message: <b>${this.form.message}</b><br />
-            //         `
-            //         // html: `<span v-html="{{ this.form.firstname }}"></span>`
-            //     })
-            //     .then(msg => console.log(msg)) // logs response data
-            //     .catch(err => console.log(err)) // logs any error
-
-            try {
-                this.loading = true
-                await mg.messages.create('vlcf.ch', {
-                    from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
-                    to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
-                    subject: 'New contact form from web-toucan.com',
-                    // text: 'Testing some Mailgun awesomness!',
-                    html: `Email sent on ${new Date()}.<br /><br />
+            const valid = this.$refs.form.validate()
+            console.log('valid: ', valid)
+            if (valid) {
+                try {
+                    this.loading = true
+                    const msg = await mg.messages.create('web-toucan.com', {
+                        from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
+                        to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
+                        subject: 'New contact form from web-toucan.com',
+                        // text: 'Testing some Mailgun awesomness!',
+                        html: `Email sent on ${new Date()}.<br /><br />
                         Here are the information sent:<br />
                         firstname: <b>${this.encodeHTML(this.form.firstname)}</b><br />
                         lastname: <b>${this.encodeHTML(this.form.lastname)}</b><br />
                         email: <b>${this.encodeHTML(this.form.email)}</b><br />
                         message: <b>${this.encodeHTML(this.form.message)}</b><br />
                     `
-                })
-                this.loading = false
-                this.messageSentError = false
-                this.messageSentSuccess = true
-            } catch (error) {
-                console.log('error: ', error)
-                this.loading = false
-                this.messageSentSuccess = false
-                this.messageSentError = true
+                    })
+                    console.log('msg: ', msg)
+                    this.loading = false
+                    this.messageSentError = false
+                    this.messageSentSuccess = true
+                } catch (error) {
+                    console.log('error: ', error)
+                    this.loading = false
+                    this.messageSentSuccess = false
+                    this.messageSentError = true
+                }
             }
         }
     }

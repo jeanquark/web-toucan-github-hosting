@@ -94,5 +94,12 @@
         "message_success": "Votre message a bien été envoyé, merci!",
         "message_error": "Nous sommes désolé, une erreur est survenue et votre message n'a pas pu être envoyé.",
         "submit": "Envoyer"
+    },
+    "validation": {
+        "is_required": "est requis",
+        "max_length": "ne peut pas dépasser",
+        "min_length": "doit contenir au moins",
+        "characters": "caractères",
+        "is_valid": "doit être valide"
     }
 }

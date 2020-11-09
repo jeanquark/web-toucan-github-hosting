@@ -3,7 +3,6 @@
         <section>
             <client-only>
                 <v-parallax :src="image1" height="600" class=""></v-parallax>
-                <!-- <v-parallax src="images/image2-800-min.jpg" height="600" class=""></v-parallax> -->
             </client-only>
         </section>
 
@@ -14,7 +13,6 @@
         <section>
             <client-only>
                 <v-parallax :src="image2" height="380"></v-parallax>
-                <!-- <v-parallax src="/web-toucan/images/image3-800-min.jpg" height="380"></v-parallax> -->
             </client-only>
         </section>
 
@@ -26,7 +24,7 @@
             <testimonials></testimonials>
         </section>
         <section>
-            <v-row no-gutters justify="center" class="mb-2">
+            <v-row no-gutters justify="center" class="mb-5">
                 <team></team>
                 <contact></contact>
             </v-row>

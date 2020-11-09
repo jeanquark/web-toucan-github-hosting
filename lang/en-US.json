@@ -88,5 +88,12 @@
         "message_success": "Your message was sent successfully. Thank you!",
         "message_error": "We're sorry, an error occured and your message could not be sent.",
         "submit": "Send"
+    },
+    "validation": {
+        "is_required": "is required",
+        "max_length": "cannot contain more than",
+        "min_length": "must contain at least",
+        "characters": "characters",
+        "is_valid": "must be valid"
     }
 }
