@@ -7,9 +7,9 @@ const routerBase =
               }
           }
         : {
-            router: {
-                base: '/'
-            }
+            // router: {
+            //     base: '/'
+            // }
         }
 
 export default {
