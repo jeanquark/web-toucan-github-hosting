@@ -21,7 +21,7 @@
                             <v-col cols="3">
                                 <v-avatar :size="100" color="grey lighten-4">
                                     <!-- <img :src="`/images/teams/${$t('team_members[0].image')}`" alt="avatar" /> -->
-                                    <img :src="`/images/teams/${team_members[index - 1]['image']}`" alt="avatar" />
+                                    <img :src="`images/teams/${team_members[index - 1]['image']}`" alt="avatar" />
                                     <!-- <img :src="`/images/teams/ivan.jpg`" alt="avatar" /> -->
                                     <!-- index: {{ team_members[index - 1]['image'] }} -->
                                 </v-avatar>

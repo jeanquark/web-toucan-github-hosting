@@ -9,7 +9,7 @@
                 <v-menu open-on-hover top offset-y class="text-center">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn text dark v-bind="attrs" v-on="on">
-                            <img :src="`/images/languages/${$i18n.locale}.png`" width="40" />
+                            <img :src="`images/languages/${$i18n.locale}.png`" width="40" />
                         </v-btn>
                     </template>
 
@@ -18,7 +18,7 @@
                             <v-list-item v-for="locale in availableLocales" :key="locale.code" style="" :class="`${hover ? 'primary-color' : ''}`">
                                 <nuxt-link :to="switchLocalePath(locale.code)" style="margin: 0 auto;">
                                 <v-list-item-title style="align-items: center; ">
-                                    <img :src="`/images/languages/${locale.code}.png`" width="30" style="" />
+                                    <img :src="`images/languages/${locale.code}.png`" width="30" style="" />
                                 </v-list-item-title>
                                 </nuxt-link>
                             </v-list-item>
