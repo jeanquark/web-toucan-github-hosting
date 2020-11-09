@@ -26,7 +26,7 @@
             <testimonials></testimonials>
         </section>
         <section>
-            <v-row no-gutters justify="center">
+            <v-row no-gutters justify="center" class="mb-2">
                 <team></team>
                 <contact></contact>
             </v-row>

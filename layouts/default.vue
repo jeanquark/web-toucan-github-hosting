@@ -17,9 +17,9 @@
                         <v-list class="text-center" slot-scope="{ hover }">
                             <v-list-item v-for="locale in availableLocales" :key="locale.code" style="" :class="`${hover ? 'primary-color' : ''}`">
                                 <nuxt-link :to="switchLocalePath(locale.code)" style="margin: 0 auto;">
-                                <v-list-item-title style="align-items: center; ">
-                                    <img :src="`images/languages/${locale.code}.png`" width="30" style="" />
-                                </v-list-item-title>
+                                    <v-list-item-title style="align-items: center; ">
+                                        <img :src="`images/languages/${locale.code}.png`" width="30" style="" />
+                                    </v-list-item-title>
                                 </nuxt-link>
                             </v-list-item>
                         </v-list>
@@ -30,8 +30,12 @@
 
         <nuxt />
 
-        <v-footer :absolute="!fixed" app style="border: 2px solid red;">
-            <span>&copy; {{ new Date().getFullYear() }}</span>
+        <v-footer :absolute="false" height="auto" color="primary">
+            <v-row justify="center" wrap>
+                <v-col cols="12" class="py-3 text-center white--text">
+                    &copy;{{ new Date().getFullYear() }} — <strong>Web Toucan</strong><img src="/images/swiss_flag.png" width="10px" style="vertical-align: top;" />
+                </v-col>
+            </v-row>
         </v-footer>
     </v-app>
 </template>

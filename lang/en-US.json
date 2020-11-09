@@ -85,7 +85,7 @@
         "email": "Email",
         "your_message": "Your message",
         "message_success": "Your message was sent successfully. Thank you!",
-        "message_failure": "We're sorry, an error occured and your message could not be sent.",
+        "message_error": "We're sorry, an error occured and your message could not be sent.",
         "submit": "Send"
     }
 }

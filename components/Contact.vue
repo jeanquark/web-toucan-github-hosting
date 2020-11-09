@@ -18,41 +18,26 @@
                 <v-btn dark @click="sendContactForm">Send contact form </v-btn>
             </div>
 
-            <!-- <form @submit.prevent="sendContactForm" ref="form">
-                <v-text-field
-                    v-model="contact.firstname"
-                    :counter="32"
-                    :label="`${$t('form.firstname')}`"
-                    name="firstname"
-                >
-                </v-text-field>
+            <form @submit.prevent="sendContactForm" ref="form">
+                <v-text-field name="firstname" :label="`${$t('form.firstname')}`" :counter="32" @focus="onFocus" v-model="form.firstname"> </v-text-field>
 
-                <v-text-field
-                    v-model="contact.lastname"
-                    :counter="32"
-                    :label="`${$t('form.lastname')}`"
-                    name="lastname"
-                    
-                >
-                </v-text-field>
+                <v-text-field name="lastname" :label="`${$t('form.lastname')}`" :counter="32" @focus="onFocus" v-model="form.lastname"> </v-text-field>
 
-                <v-text-field
-                    v-model="contact.email"
-                    :label="`${$t('form.email')}`"
-                    name="email"
-                ></v-text-field>
+                <v-text-field name="email" :label="`${$t('form.email')}`" @focus="onFocus" v-model="form.email"></v-text-field>
 
-                <v-textarea
-                    v-model="contact.message"
-                    :label="`${$t('form.your_message')}`"
-                    name="message"
-                    rows="6"
-                ></v-textarea>
+                <v-textarea name="message" rows="6" :label="`${$t('form.your_message')}`" @focus="onFocus" v-model="form.message"></v-textarea>
                 <br />
-                <div class="text-center">
-                    <v-btn color="success" type="submit" :disabled="disabled" :loading="loading">{{ $t('form.submit') }}</v-btn>
+                <div class="text-center" v-if="!messageSentSuccess && !messageSentError">
+                    <v-btn color="secondary" type="submit" :loading="loading">{{ $t('form.submit') }}</v-btn>
                 </div>
-            </form> -->
+            </form>
+
+            <v-alert type="success" v-if="messageSentSuccess">
+                {{ $t('form.message_success') }}
+            </v-alert>
+            <v-alert type="error" prominent v-if="messageSentError">
+                {{ $t('form.message_error') }}
+            </v-alert>
         </v-card>
     </v-col>
 </template>
@@ -63,30 +48,79 @@ var mg = mailgun.client({ username: 'api', key: process.env.NUXT_ENV_MAILGUN_PRI
 export default {
     data() {
         return {
+            loading: false,
+            messageSentSuccess: false,
+            messageSentError: false,
+            form: {
+                firstname: '',
+                lastname: '',
+                email: '',
+                message: ''
+            },
             mailgunDestinationEmailAddress: process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS
         }
     },
     computed: {
-        disabled() {
-            return false
-        },
-        loading() {
-            return false
-        }
     },
     methods: {
-        sendContactForm() {
-            console.log('Send contact form: ', mg)
-            mg.messages
-                .create('vlcf.ch', {
+        onFocus () {
+            console.log('onFocus')
+            this.messageSentSuccess = false
+            this.messageSentError = false
+        },
+        encodeHTML(s) {
+            return s
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/"/g, '&quot;')
+        },
+        async sendContactForm() {
+            console.log('sendContactForm: ', this.form)
+            // console.log('Send contact form: ', mg)
+            console.log('escape: ', this.encodeHTML(this.form.message))
+            // this.loading = true
+            // mg.messages
+            //     .create('vlcf.ch', {
+            //         from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
+            //         to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
+            //         subject: 'New contact form from web-toucan.com',
+            //         text: 'Testing some Mailgun awesomness!',
+            //         html: `Email sent on ${new Date()}.<br /><br />
+            //             Here are the information sent:<br />
+            //             firstname: <b>${this.encodeHTML(this.form.firstname)}</b><br />
+            //             lastname: <b>${this.form.lastname}</b><br />
+            //             email: <b>${this.form.email}</b><br />
+            //             message: <b>${this.form.message}</b><br />
+            //         `
+            //         // html: `<span v-html="{{ this.form.firstname }}"></span>`
+            //     })
+            //     .then(msg => console.log(msg)) // logs response data
+            //     .catch(err => console.log(err)) // logs any error
+
+            try {
+                this.loading = true
+                await mg.messages.create('vlcf.ch', {
                     from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
                     to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
-                    subject: 'Test Email from Mailgun',
+                    subject: 'New contact form from web-toucan.com',
                     text: 'Testing some Mailgun awesomness!',
-                    html: `Email sent on ${new Date()}`
+                    html: `Email sent on ${new Date()}.<br /><br />
+                        Here are the information sent:<br />
+                        firstname: <b>${this.encodeHTML(this.form.firstname)}</b><br />
+                        lastname: <b>${this.encodeHTML(this.form.lastname)}</b><br />
+                        email: <b>${this.encodeHTML(this.form.email)}</b><br />
+                        message: <b>${this.encodeHTML(this.form.message)}</b><br />
+                    `
                 })
-                .then(msg => console.log(msg)) // logs response data
-                .catch(err => console.log(err)) // logs any error
+                this.loading = false
+                this.messageSentError = false
+                this.messageSentSuccess = true
+            } catch (error) {
+                console.log('error: ', error)
+                this.loading = false
+                this.messageSentSuccess = false
+                this.messageSentError = true
+            }
         }
     }
 }
