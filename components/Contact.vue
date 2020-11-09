@@ -6,7 +6,7 @@
                     {{ $t('contact.title') }}
                 </div>
             </v-card-title>
-            <v-card-text class="text-center">
+            <v-card-text class="">
                 {{ $t('contact.content') }}
                 <br /><br />
             </v-card-text>
@@ -23,7 +23,7 @@
                     :counter="32"
                     :rules="[
                         v => !!v || `${$t('form.firstname')} ${$t('validation.is_required')}`,
-                        v => (v && v.length <= 30) || `${$t('form.firstname')} ${$t('validation.max_length')} 30 ${$t('validation.characters')}`
+                        v => (v && v.length <= 32) || `${$t('form.firstname')} ${$t('validation.max_length')} 32 ${$t('validation.characters')}`
                     ]"
                     @focus="onFocus"
                     v-model="form.firstname"
@@ -32,7 +32,7 @@
 
                 <v-text-field name="lastname" :label="`${$t('form.lastname')}`" :counter="32" :rules="[
                         v => !!v || `${$t('form.lastname')} ${$t('validation.is_required')}`,
-                        v => (v && v.length <= 30) || `${$t('form.lastname')} ${$t('validation.max_length')} 30 ${$t('validation.characters')}`
+                        v => (v && v.length <= 32) || `${$t('form.lastname')} ${$t('validation.max_length')} 32 ${$t('validation.characters')}`
                     ]" @focus="onFocus" v-model="form.lastname"> </v-text-field>
 
                 <v-text-field name="email" :label="`${$t('form.email')}`" :rules="[
@@ -100,7 +100,7 @@ export default {
                 try {
                     this.loading = true
                     const msg = await mg.messages.create('web-toucan.com', {
-                        from: 'Excited User <mailgun@sandbox-123.mailgun.org>',
+                        from: 'Contact form http://web-toucan.com',
                         to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
                         subject: 'New contact form from web-toucan.com',
                         // text: 'Testing some Mailgun awesomness!',

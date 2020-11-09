@@ -39,12 +39,6 @@
     ],
     "testimonials": [
         {
-            "title": "Dr. Olivier B.",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean faucibus risus eget leo facilisis, ut laoreet mauris luctus. Proin sit amet maximus nisl. In iaculis odio vel felis euismod pla",
-            "image-logo": "jbne-logo.png",
-            "image": "jbne.jpg"
-        },
-        {
             "title": "Hélène C.",
             "content": "Web toucan a procédé avec succès à la refonte de notre ancien site web. Grâce à l'apport des nouvelles technologies du web, nous avons désormais une plateforme au design soigné, qui correspond parfaitement à notre positionnement",
             "image-logo": "buchillonaucarre-logo.png",
