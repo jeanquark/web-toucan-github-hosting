@@ -29,9 +29,6 @@ jobs:
 
             - name: Generate
               run: npm run generate
-              env:
-                  NUXT_ENV_MAILGUN_PRIVATE_API_KEY: ${{ secrets.NUXT_ENV_MAILGUN_PRIVATE_API_KEY }}
-                  NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS: ${{ secrets.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS }}
 
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@releases/v3

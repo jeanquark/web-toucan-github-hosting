@@ -11,11 +11,6 @@
                 <br /><br />
             </v-card-text>
 
-            <!-- <div class="text-center">
-                mailgunDestinationEmailAddress: {{ mailgunDestinationEmailAddress }}<br /><br />
-                <v-btn dark @click="sendContactForm">Send contact form </v-btn>
-            </div> -->
-
             <v-form ref="form" lazy-validation @submit.prevent="sendContactForm" v-model="valid">
                 <v-text-field
                     name="firstname"
@@ -30,20 +25,38 @@
                 >
                 </v-text-field>
 
-                <v-text-field name="lastname" :label="`${$t('form.lastname')}`" :counter="32" :rules="[
+                <v-text-field
+                    name="lastname"
+                    :label="`${$t('form.lastname')}`"
+                    :counter="32"
+                    :rules="[
                         v => !!v || `${$t('form.lastname')} ${$t('validation.is_required')}`,
                         v => (v && v.length <= 32) || `${$t('form.lastname')} ${$t('validation.max_length')} 32 ${$t('validation.characters')}`
-                    ]" @focus="onFocus" v-model="form.lastname"> </v-text-field>
+                    ]"
+                    @focus="onFocus"
+                    v-model="form.lastname"
+                >
+                </v-text-field>
 
-                <v-text-field name="email" :label="`${$t('form.email')}`" :rules="[
-                        v => !!v || `${$t('form.email')} ${$t('validation.is_required')}`,
-                        v => /.+@.+\..+/.test(v) || `${$t('form.email')} ${$t('validation.is_valid')}`
-                    ]" @focus="onFocus" v-model="form.email"></v-text-field>
+                <v-text-field
+                    name="email"
+                    :label="`${$t('form.email')}`"
+                    :rules="[v => !!v || `${$t('form.email')} ${$t('validation.is_required')}`, v => /.+@.+\..+/.test(v) || `${$t('form.email')} ${$t('validation.is_valid')}`]"
+                    @focus="onFocus"
+                    v-model="form.email"
+                ></v-text-field>
 
-                <v-textarea name="message" rows="6" :label="`${$t('form.your_message')}`" :rules="[
+                <v-textarea
+                    name="message"
+                    rows="6"
+                    :label="`${$t('form.your_message')}`"
+                    :rules="[
                         v => !!v || `${$t('form.your_message')} ${$t('validation.is_required')}`,
                         v => (v && v.length <= 2048) || `${$t('form.your_message')} ${$t('validation.max_length')} 2048 ${$t('validation.characters')}`
-                    ]" @focus="onFocus" v-model="form.message"></v-textarea>
+                    ]"
+                    @focus="onFocus"
+                    v-model="form.message"
+                ></v-textarea>
                 <br />
                 <div class="text-center" v-if="!messageSentSuccess && !messageSentError">
                     <v-btn color="secondary" type="submit" :disabled="!valid" :loading="loading">{{ $t('form.submit') }}</v-btn>
@@ -61,8 +74,8 @@
 </template>
 
 <script>
-var mailgun = require('mailgun.js')
-var mg = mailgun.client({ username: 'api', key: process.env.NUXT_ENV_MAILGUN_PRIVATE_API_KEY, url: 'https://api.eu.mailgun.net' })
+// var mailgun = require('mailgun.js')
+// var mg = mailgun.client({ username: 'api', key: process.env.NUXT_ENV_MAILGUN_PRIVATE_API_KEY, url: 'https://api.eu.mailgun.net' })
 export default {
     data() {
         return {
@@ -75,12 +88,11 @@ export default {
                 email: '',
                 message: ''
             },
-            valid: true,
-            mailgunDestinationEmailAddress: process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS
+            valid: true
+            // mailgunDestinationEmailAddress: process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS
         }
     },
-    computed: {
-    },
+    computed: {},
     methods: {
         onFocus() {
             console.log('onFocus')
@@ -94,6 +106,38 @@ export default {
                 .replace(/"/g, '&quot;')
         },
         async sendContactForm() {
+            try {
+                console.log('sendContactForm3')
+                const valid = this.$refs.form.validate()
+                console.log('valid: ', valid)
+                if (valid) {
+                    this.loading = true
+                    const res = await fetch('https://script.google.com/macros/s/AKfycbxUyOBod71w88TG7KWS66TYvlQWM2-Q8v6l0yez/exec', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            firstname: `${this.encodeHTML(this.form.firstname)}`,
+                            lastname: `${this.encodeHTML(this.form.lastname)}`,
+                            email: `${this.encodeHTML(this.form.email)}`,
+                            message: `${this.encodeHTML(this.form.message)}`
+                        })
+                    })
+                    if (res.status === 200) {
+                        this.loading = false
+                        this.messageSentError = false
+                        this.messageSentSuccess = true
+                    }
+                }
+            } catch (error) {
+                console.log('error: ', error)
+                this.loading = false
+                this.messageSentSuccess = false
+                this.messageSentError = true
+            }
+        },
+        async sendContactForm_mailgun() {
             const valid = this.$refs.form.validate()
             console.log('valid: ', valid)
             if (valid) {
@@ -103,7 +147,6 @@ export default {
                         from: 'Contact form http://web-toucan.com',
                         to: [process.env.NUXT_ENV_MAILGUN_DESTINATION_EMAIL_ADDRESS],
                         subject: 'New contact form from web-toucan.com',
-                        // text: 'Testing some Mailgun awesomness!',
                         html: `Email sent on ${new Date()}.<br /><br />
                         Here are the information sent:<br />
                         firstname: <b>${this.encodeHTML(this.form.firstname)}</b><br />
