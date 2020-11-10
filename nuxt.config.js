@@ -3,7 +3,8 @@ const routerBase =
     process.env.DEPLOY_ENV === 'GH_PAGES'
         ? {
               router: {
-                  base: '/web-toucan/'
+                //   base: '/web-toucan/'
+                  base: '/'
               }
           }
         : {
