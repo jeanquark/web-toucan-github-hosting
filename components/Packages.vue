@@ -26,7 +26,7 @@
                                         </v-list-item>
                                         <v-list-item>
                                             <v-list-item-avatar>
-                                                <v-icon>email</v-icon>
+                                                <v-icon>{{ iconsSecondLine[index - 1] }}</v-icon>
                                             </v-list-item-avatar>
                                             <v-list-item-content>
                                                 <v-list-item-title>{{ $t(`packages[${index - 1}].asset2`) }}</v-list-item-title>
@@ -37,7 +37,7 @@
                                         </v-list-item>
                                         <v-list-item>
                                             <v-list-item-avatar>
-                                                <v-icon>search</v-icon>
+                                                <v-icon>{{ iconsThirdLine[index -1] }}</v-icon>
                                             </v-list-item-avatar>
                                             <v-list-item-content>
                                                 <v-list-item-title>{{ $t(`packages[${index - 1}].asset3`) }}</v-list-item-title>
@@ -75,7 +75,9 @@ export default {
     data() {
         return {
             prices: ['500', "1'500", "2'000+"],
-            colors: ['#8ac5ff', '#64B5F6', '#1976d2']
+            colors: ['#8ac5ff', '#64B5F6', '#1976d2'],
+            iconsSecondLine: ['email', 'admin_panel_settings', 'code'],
+            iconsThirdLine: ['search', 'functions', 'compare_arrows']
         }
     }
 }
