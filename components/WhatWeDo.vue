@@ -45,8 +45,8 @@
                 <v-layout row wrap align-center>
                     <v-flex xs12 md4>
                         <v-card v-for="index in this.$t('activities').length" :key="index" class="elevation-0 transparent">
-                            <v-card-text class="text-xs-center">
-                                <v-icon>mdi_domain</v-icon>
+                            <v-card-text class="text-center">
+                                <v-icon size="3em" :color="index % 2 === 0 ? 'secondary' : 'primary'">{{ icons[index - 1] }}</v-icon>
                             </v-card-text>
                             <v-card-title primary-title class="layout justify-center">
                                 <div class="headline">{{ $t(`activities[${index - 1}].title`) }}</div>
@@ -65,7 +65,9 @@
 <script>
 export default {
     data() {
-        return {}
+        return {
+            icons: ['laptop', 'palette', 'pie_chart']
+        }
     },
     computed: {
         availableLocales() {

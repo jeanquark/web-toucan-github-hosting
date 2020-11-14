@@ -125,6 +125,7 @@ export default {
                         })
                     })
                     if (res.status === 200) {
+                        this.$refs.form.reset()
                         this.loading = false
                         this.messageSentError = false
                         this.messageSentSuccess = true
@@ -159,6 +160,7 @@ export default {
                     this.loading = false
                     this.messageSentError = false
                     this.messageSentSuccess = true
+
                 } catch (error) {
                     console.log('error: ', error)
                     this.loading = false

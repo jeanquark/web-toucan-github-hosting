@@ -1,5 +1,5 @@
 <template>
-    <v-app id="app" v-cloak>
+    <v-app id="app" v-cloak style="">
         <v-toolbar color="white">
             <v-toolbar-title>
                 <img src="/images/logo_small.png" alt="Web Toucan logo" width="150" />
