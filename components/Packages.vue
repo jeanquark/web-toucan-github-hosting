@@ -11,41 +11,43 @@
                                         <h3 class="headline mb-0">{{ $t(`packages[${index - 1}].title`) }}</h3>
                                     </div>
                                 </v-card-title>
-                                <v-card-text class="" style="padding: 30px;">
-                                    <v-list subheader style="background-color: #d7ebff;">
-                                        <v-list-item>
-                                            <v-list-item-avatar>
-                                                <v-icon color="">web</v-icon>
-                                            </v-list-item-avatar>
-                                            <v-list-item-content>
-                                                <v-list-item-title>{{ $t(`packages[${index - 1}].asset1`) }}</v-list-item-title>
-                                            </v-list-item-content>
-                                            <v-list-item-action>
-                                                <v-icon text="white" color="green">check_circle</v-icon>
-                                            </v-list-item-action>
-                                        </v-list-item>
-                                        <v-list-item>
-                                            <v-list-item-avatar>
-                                                <v-icon>{{ iconsSecondLine[index - 1] }}</v-icon>
-                                            </v-list-item-avatar>
-                                            <v-list-item-content>
-                                                <v-list-item-title>{{ $t(`packages[${index - 1}].asset2`) }}</v-list-item-title>
-                                            </v-list-item-content>
-                                            <v-list-item-action>
-                                                <v-icon color="green">check_circle</v-icon>
-                                            </v-list-item-action>
-                                        </v-list-item>
-                                        <v-list-item>
-                                            <v-list-item-avatar>
-                                                <v-icon>{{ iconsThirdLine[index -1] }}</v-icon>
-                                            </v-list-item-avatar>
-                                            <v-list-item-content>
-                                                <v-list-item-title>{{ $t(`packages[${index - 1}].asset3`) }}</v-list-item-title>
-                                            </v-list-item-content>
-                                            <v-list-item-action>
-                                                <v-icon color="green">check_circle</v-icon>
-                                            </v-list-item-action>
-                                        </v-list-item>
+                                <v-card-text class="" style="padding: 30px">
+                                    <v-list subheader style="background-color: #d7ebff">
+                                        <v-list-item-group>
+                                            <v-list-item>
+                                                <v-list-item-avatar>
+                                                    <v-icon color="">web</v-icon>
+                                                </v-list-item-avatar>
+                                                <v-list-item-content>
+                                                    <v-list-item-title class="white-space">{{ $t(`packages[${index - 1}].asset1`) }}</v-list-item-title>
+                                                </v-list-item-content>
+                                                <v-list-item-action>
+                                                    <v-icon text="white" color="green">check_circle</v-icon>
+                                                </v-list-item-action>
+                                            </v-list-item>
+                                            <v-list-item>
+                                                <v-list-item-avatar>
+                                                    <v-icon>{{ iconsSecondLine[index - 1] }}</v-icon>
+                                                </v-list-item-avatar>
+                                                <v-list-item-content>
+                                                    <v-list-item-title class="white-space">{{ $t(`packages[${index - 1}].asset2`) }}</v-list-item-title>
+                                                </v-list-item-content>
+                                                <v-list-item-action>
+                                                    <v-icon color="green">check_circle</v-icon>
+                                                </v-list-item-action>
+                                            </v-list-item>
+                                            <v-list-item>
+                                                <v-list-item-avatar>
+                                                    <v-icon>{{ iconsThirdLine[index - 1] }}</v-icon>
+                                                </v-list-item-avatar>
+                                                <v-list-item-content>
+                                                    <v-list-item-title class="white-space">{{ $t(`packages[${index - 1}].asset3`) }}</v-list-item-title>
+                                                </v-list-item-content>
+                                                <v-list-item-action>
+                                                    <v-icon color="green">check_circle</v-icon>
+                                                </v-list-item-action>
+                                            </v-list-item>
+                                        </v-list-item-group>
                                     </v-list>
                                     <br />
                                     <div class="text-center">
@@ -77,9 +79,9 @@ export default {
             prices: ['500', "1'500", "2'000+"],
             colors: ['#8ac5ff', '#64B5F6', '#1976d2'],
             iconsSecondLine: ['email', 'admin_panel_settings', 'code'],
-            iconsThirdLine: ['search', 'functions', 'compare_arrows']
+            iconsThirdLine: ['search', 'functions', 'compare_arrows'],
         }
-    }
+    },
 }
 </script>
 
@@ -122,14 +124,12 @@ export default {
     backface-visibility: hidden;
 }
 
-.flip-card-front {
-    /* background-color: #bbb; */
-    /* color: black; */
-}
-
 .flip-card-back {
     /* background-color: #2980b9; */
     /* color: white; */
     transform: rotateY(180deg);
+}
+.white-space {
+    white-space: normal;
 }
 </style>
