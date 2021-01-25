@@ -32,6 +32,10 @@ const routerBase =
           }
         : {}
 ```
+## DNS config
+
+![dns_config](static/images/dns_config.jpg)
+
 
 ## Author
 
