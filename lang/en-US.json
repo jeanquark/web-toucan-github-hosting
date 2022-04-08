@@ -87,6 +87,7 @@
         "your_message": "Your message",
         "message_success": "Your message was sent successfully. Thank you!",
         "message_error": "We're sorry, an error occured and your message could not be sent.",
+        "message_invalid_recaptcha": "Please fill in reCAPTCHA.",
         "submit": "Send"
     },
     "validation": {

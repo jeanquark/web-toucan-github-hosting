@@ -16,8 +16,8 @@
                     <v-hover>
                         <v-list class="text-center" slot-scope="{ hover }">
                             <v-list-item v-for="locale in availableLocales" :key="locale.code" style="" :class="`${hover ? 'primary-color' : ''}`">
-                                <nuxt-link :to="switchLocalePath(locale.code)" style="margin: 0 auto;">
-                                    <v-list-item-title style="align-items: center; ">
+                                <nuxt-link :to="switchLocalePath(locale.code)" style="margin: 0 auto">
+                                    <v-list-item-title style="align-items: center">
                                         <img :src="`images/languages/${locale.code}.png`" width="30" style="" />
                                     </v-list-item-title>
                                 </nuxt-link>
@@ -31,28 +31,29 @@
         <nuxt />
 
         <v-footer :absolute="false" height="auto" color="primary">
-            <v-row justify="center" wrap>
+            <v-row justify="center" align="center" wrap class="my-0">
                 <v-col cols="12" class="py-3 text-center white--text">
-                    &copy;{{ new Date().getFullYear() }} — <strong>Web Toucan</strong><img src="images/swiss_flag.png" width="10px" style="vertical-align: top;" />
+                    &copy;{{ new Date().getFullYear() }} — <strong>Web Toucan</strong><img src="images/swiss_flag.png" width="10px" style="vertical-align: top" />
                 </v-col>
             </v-row>
         </v-footer>
     </v-app>
 </template>
 
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 <script>
 export default {
     data() {
         return {
-            fixed: false
+            fixed: false,
         }
     },
     computed: {
         availableLocales() {
-            return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
-        }
+            return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
+        },
     },
-    methods: {}
+    methods: {},
 }
 </script>
 

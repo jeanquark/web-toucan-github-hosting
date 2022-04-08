@@ -1,25 +1,17 @@
 <template>
     <v-main>
         <section>
-            <!-- <client-only> -->
-                <!-- <v-parallax :src="image1" height="600" class=""></v-parallax> -->
-                <v-parallax
-                    srcset="/images/image2-800-min.jpg 800w,
+            <v-parallax
+                srcset="/images/image2-800-min.jpg 800w,
                             /images/image2-1200-min.jpg 1200w,
                             /images/image2-1600-min.jpg 1600w,
                             /images/image2-2200-min.jpg 2200w,
                             /images/image2-2600-min.jpg 2600w,
                             /images/image2-3200-min.jpg 3200w"
-                    max-height="600"
-                    loading="eager"
-                    alt="peope working in office (cartoonish)"
-                ></v-parallax>
-                <!-- <v-parallax
-                    lazy-src="https://picsum.photos/id/11/10/6"
-                    src="https://picsum.photos/id/11/3200/600"
-                    max-height="600"
-                ></v-parallax> -->
-            <!-- </client-only> -->
+                max-height="600"
+                loading="eager"
+                alt="peope working in office (cartoonish)"
+            ></v-parallax>
         </section>
 
         <v-container>
@@ -27,18 +19,20 @@
         </v-container>
 
         <section>
-            <!-- <client-only> -->
             <v-lazy>
-                <!-- <v-parallax :src="image2" height="380"></v-parallax> -->
-                <v-parallax srcset="/images/image3-800-min.jpg 800w,
+                <v-parallax
+                    srcset="/images/image3-800-min.jpg 800w,
                                     /images/image3-1200-min.jpg 1200w,
                                     /images/image3-1600-min.jpg 1600w,
                                     /images/image3-2200-min.jpg 2200w,
                                     /images/image3-2600-min.jpg 2600w,
                                     /images/image3-3200-min.jpg 3200w
-                " height="380" loading="lazy" alt="people around desk in office (cartoonish)"></v-parallax>
+                "
+                    height="380"
+                    loading="lazy"
+                    alt="people around desk in office (cartoonish)"
+                ></v-parallax>
             </v-lazy>
-            <!-- </client-only> -->
         </section>
 
         <section>
@@ -70,7 +64,7 @@ export default {
         OurPackages,
         Testimonials,
         Team,
-        Contact
+        Contact,
     },
     data() {
         return {}
@@ -114,7 +108,7 @@ export default {
         //         return 'images/image3-3200-min.jpg'
         //     }
         // }
-    }
+    },
 }
 </script>
 
