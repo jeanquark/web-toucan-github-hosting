@@ -14,6 +14,8 @@ jobs:
               uses: actions/setup-node@v2-beta
               with:
                   node-version: '12.x'
+            - name: Upgrade NPM
+              run: npm install -g npm
             - name: Cache dependencies
               uses: actions/cache@v2
               with:
@@ -23,8 +25,6 @@ jobs:
                       ${{ runner.os }}-node-
             - run: npm ci
             - run: npm test
-            - name: Upgrade NPM
-              run: npm install -g npm
             - name: Generate
               run: npm run generate
             - name: Deploy 🚀
