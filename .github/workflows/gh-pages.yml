@@ -10,12 +10,10 @@ jobs:
         runs-on: ubuntu-18.04
         steps:
             - uses: actions/checkout@v2
-
             - name: Setup Node
               uses: actions/setup-node@v2-beta
               with:
                   node-version: '12.x'
-
             - name: Cache dependencies
               uses: actions/cache@v2
               with:
@@ -23,13 +21,12 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
                       ${{ runner.os }}-node-
-
             - run: npm ci
             - run: npm test
-
+            - name: Upgrade NPM
+              run: npm install -g npm
             - name: Generate
               run: npm run generate
-
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
