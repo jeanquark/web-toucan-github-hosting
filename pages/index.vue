@@ -2,12 +2,12 @@
     <v-main>
         <section>
             <v-parallax
-                srcset="/images/image2-800-min.jpg 800w,
-                            /images/image2-1200-min.jpg 1200w,
-                            /images/image2-1600-min.jpg 1600w,
-                            /images/image2-2200-min.jpg 2200w,
-                            /images/image2-2600-min.jpg 2600w,
-                            /images/image2-3200-min.jpg 3200w"
+                srcset="images/image2-800-min.jpg 800w,
+                            images/image2-1200-min.jpg 1200w,
+                            images/image2-1600-min.jpg 1600w,
+                            images/image2-2200-min.jpg 2200w,
+                            images/image2-2600-min.jpg 2600w,
+                            images/image2-3200-min.jpg 3200w"
                 max-height="600"
                 loading="eager"
                 alt="peope working in office (cartoonish)"

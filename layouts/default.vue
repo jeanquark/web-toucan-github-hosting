@@ -2,7 +2,7 @@
     <v-app id="app" v-cloak style="">
         <v-toolbar color="white">
             <v-toolbar-title>
-                <img src="/images/logo_small.png" alt="Web Toucan logo" width="150" />
+                <img src="images/logo_small.png" alt="Web Toucan logo" width="150" />
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="text-center">
