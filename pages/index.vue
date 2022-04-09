@@ -47,6 +47,7 @@
                 <team></team>
                 <contact></contact>
             </v-row>
+            00:42
         </section>
     </v-main>
 </template>
