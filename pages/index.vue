@@ -21,12 +21,12 @@
         <section>
             <v-lazy>
                 <v-parallax
-                    srcset="/images/image3-800-min.jpg 800w,
-                                    /images/image3-1200-min.jpg 1200w,
-                                    /images/image3-1600-min.jpg 1600w,
-                                    /images/image3-2200-min.jpg 2200w,
-                                    /images/image3-2600-min.jpg 2600w,
-                                    /images/image3-3200-min.jpg 3200w
+                    srcset="images/image3-800-min.jpg 800w,
+                                    images/image3-1200-min.jpg 1200w,
+                                    images/image3-1600-min.jpg 1600w,
+                                    images/image3-2200-min.jpg 2200w,
+                                    images/image3-2600-min.jpg 2600w,
+                                    images/image3-3200-min.jpg 3200w
                 "
                     height="380"
                     loading="lazy"
@@ -47,7 +47,6 @@
                 <team></team>
                 <contact></contact>
             </v-row>
-            00:42
         </section>
     </v-main>
 </template>
