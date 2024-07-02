@@ -35,7 +35,7 @@ const routerBase =
     process.env.DEPLOY_ENV === 'GH_PAGES'
         ? {
               router: {
-                  base: '/web-toucan/' // Deployment on jeanquark.github.io/web-toucan
+                  base: '/web-toucan/' // Deployment on jeanquark.github.io/web-toucan-github-hosting
                   // base: '/' Deployment on custom domain
               }
           }
